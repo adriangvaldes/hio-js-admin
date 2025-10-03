@@ -1,0 +1,19 @@
+version: "3.8"
+services:
+  # This defines our PostgreSQL database service
+  postgres_db:
+    image: postgres:15-alpine # Use a specific, lightweight version of Postgres
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: hiojs_admin_090294
+      POSTGRES_DB: hiojs_db
+    ports:
+      # Exposes the database port to your local machine
+      - "5432:5432"
+    volumes:
+      # This ensures your data is persisted even if the container is removed
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
