@@ -32,7 +32,7 @@ model User {
 model ChatMessage {
   id        String   @id @default(cuid())
   text      String
-  sender    String // "customer" or "agent"
+  sender    Role
   roomId    String
   timestamp DateTime @default(now())
 
