@@ -12,7 +12,7 @@ export default function Login() {
       <section className='bg-white w-full h-screen flex justify-center items-center p-8 rounded-lg shadow-lg'>
         <div>
           <h1 className='text-4xl font-bold mb-2'>Get Started Now</h1>
-          <p className='text-slate-400'>Please log in with your credentials to continue</p>
+          <p className='text-slate-400 mb-10'>Please log in with your credentials to continue</p>
           <FormClientSide />
         </div>
       </section>
