@@ -1,4 +1,3 @@
-"use client";
 import { FormClientSide } from "./formClientSide";
 
 export default function Login() {
