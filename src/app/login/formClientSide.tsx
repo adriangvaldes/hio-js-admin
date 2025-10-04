@@ -2,11 +2,10 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import z from "zod";
 import { LoginSchema, loginSchema } from "./loginSchema";
-import { Form, FormField, FormItem, FormLabel, FormControl, FormDescription, FormMessage } from "@/components/ui/form";
+import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
-import { TextInput } from "@/components/TextInput";
+import { TextInput } from "@/components/Input";
 
 export function FormClientSide() {
   const form = useForm<LoginSchema>({
@@ -23,17 +22,22 @@ export function FormClientSide() {
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className='space-y-8'>
-        <TextInput control={form.control} name='email' label='Email' description='This is your public display name.' />
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
         <TextInput
           control={form.control}
-          name='password'
-          label='Password'
-          description='This is your password.'
-          type='password'
+          name="email"
+          label="Email"
+          description="This is your public display name."
+        />
+        <TextInput
+          control={form.control}
+          name="password"
+          label="Password"
+          description="This is your password."
+          type="password"
         />
 
-        <Button type='submit'>Submit</Button>
+        <Button type="submit">Submit</Button>
       </form>
     </Form>
   );
