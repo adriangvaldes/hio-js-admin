@@ -1,3 +1,6 @@
+"use client";
+import { FormClientSide } from "./formClientSide";
+
 export default function Login() {
   return (
     <div className='font-sans flex items-center justify-between min-h-screen bg-white'>
@@ -11,6 +14,7 @@ export default function Login() {
         <div>
           <h1 className='text-4xl font-bold mb-2'>Get Started Now</h1>
           <p className='text-slate-400'>Please log in with your credentials to continue</p>
+          <FormClientSide />
         </div>
       </section>
     </div>

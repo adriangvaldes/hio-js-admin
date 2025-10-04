@@ -1,3 +1,5 @@
+"use client";
+
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form, useForm } from "react-hook-form";
 import z from "zod";
@@ -32,6 +34,20 @@ export function FormClientSide() {
               <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input placeholder='email' {...field} />
+              </FormControl>
+              <FormDescription>This is your public display name.</FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
+          name='email'
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Email</FormLabel>
+              <FormControl>
+                <Input placeholder='password' {...field} type='password' />
               </FormControl>
               <FormDescription>This is your public display name.</FormDescription>
               <FormMessage />
