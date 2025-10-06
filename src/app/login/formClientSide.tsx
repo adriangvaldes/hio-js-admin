@@ -39,6 +39,12 @@ export function FormClientSide() {
 
         <Button type="submit">Submit</Button>
       </form>
+      <p className="mt-5 text-slate-400">
+        Not have a account? Click here to{" "}
+        <a className="cursor-pointer text-blue-500 transition-all hover:text-blue-700 hover:underline">
+          Register
+        </a>
+      </p>
     </Form>
   );
 }
