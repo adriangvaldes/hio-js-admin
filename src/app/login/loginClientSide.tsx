@@ -48,13 +48,7 @@ export function LoginClientSide(props: LoginClientSideProps) {
           }
         )}
       >
-        {formVisible && (
-          <div className="w-full max-w-sm">
-            <h1 className="mb-2 text-4xl font-bold">Get Started Now</h1>
-            <p className="mb-10 text-slate-400">Please log in with your credentials to continue</p>
-            <FormClientSide />
-          </div>
-        )}
+        {formVisible && <FormClientSide />}
       </section>
     </div>
   );
