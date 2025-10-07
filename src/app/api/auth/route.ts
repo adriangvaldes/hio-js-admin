@@ -1,4 +1,4 @@
-import { signUpSchema } from "@/lib/auth_prisma";
+import { signUpCreateSchema } from "@/lib/auth_prisma";
 import prisma from "@/lib/prisma";
 import { cookies } from "next/headers";
 import { NextRequest, NextResponse } from "next/server";
@@ -10,10 +10,10 @@ const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET || "your-default-r
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json();
-    const validation = signUpSchema.safeParse(body);
+    const validation = signUpCreateSchema.safeParse(body);
 
     if (!validation.success) {
-      return NextResponse.json({ error: validation.error }, { status: 400 });
+      return NextResponse.json({ error: validation.error.message }, { status: 400 });
     }
 
     const { email, password, name } = validation.data;
