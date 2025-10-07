@@ -2,14 +2,14 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { LoginSchema, loginSchema } from "./loginSchema";
+import { LoginT, loginSchema } from "../loginSchema";
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { TextInput } from "@/components/Input";
 import Link from "next/link";
 
-export function FormClientSide() {
-  const form = useForm<LoginSchema>({
+export function FormSignIn() {
+  const form = useForm<LoginT>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
       email: "",
@@ -17,7 +17,7 @@ export function FormClientSide() {
     },
   });
 
-  function onSubmit(values: LoginSchema) {
+  function onSubmit(values: LoginT) {
     console.log(values);
   }
 
@@ -47,7 +47,7 @@ export function FormClientSide() {
           Not have a account? Click here to{" "}
           <Link
             className="cursor-pointer text-blue-500 transition-all hover:text-blue-700 hover:underline"
-            href="/register"
+            href="/login?sign_up=true"
           >
             Register
           </Link>

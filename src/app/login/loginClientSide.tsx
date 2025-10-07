@@ -2,15 +2,21 @@
 
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { FormClientSide } from "./formClientSide";
+import { FormSignIn } from "./components/formSignIn";
 import { useState } from "react";
 import { setCookie } from "../actions/cookies";
+import { Activity } from "lucide-react";
+import { FormSignUp } from "./components/formSigUp";
+import { useSearchParams } from "next/navigation";
 
 interface LoginClientSideProps {
   formVisible: boolean;
 }
 export function LoginClientSide(props: LoginClientSideProps) {
+  const searchParams = useSearchParams();
   const [formVisible, setFormVisible] = useState(props.formVisible);
+
+  const isSignUp = searchParams.get("sign_up") === "true";
 
   const handleGetStartedClick = async () => {
     setFormVisible((p) => !p);
@@ -48,7 +54,8 @@ export function LoginClientSide(props: LoginClientSideProps) {
           }
         )}
       >
-        {formVisible && <FormClientSide />}
+        {formVisible && !isSignUp && <FormSignIn />}
+        {formVisible && isSignUp && <FormSignUp />}
       </section>
     </div>
   );
