@@ -2,7 +2,7 @@
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { signUpSchema, SignUpT } from "../loginSchema";
+import { signUpSchema, SignUpT } from "@/lib/auth_prisma";
 import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { TextInput } from "@/components/Input";
