@@ -20,7 +20,7 @@ export function FormSignIn() {
 
   function onSubmit(values: LoginT) {
     console.log(values);
-    toast.success("Logged in successfully!");
+    toast.error("Failed to Log In!");
   }
 
   return (
