@@ -47,7 +47,7 @@ export function FormSignIn() {
           Not have a account? Click here to{" "}
           <Link
             className="cursor-pointer text-blue-500 transition-all hover:text-blue-700 hover:underline"
-            href="/login?sign_up=true"
+            href="/sign-in?sign_up=true"
           >
             Register
           </Link>
