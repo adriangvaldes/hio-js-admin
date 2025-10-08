@@ -4,12 +4,31 @@ const publicRoutes = [
   { path: "/sign-in", whenAuthenticated: "redirect" },
   { path: "/register", whenAuthenticated: "redirect" },
   { path: "/home", whenAuthenticated: "next" },
-];
+] as const;
 
 const REDIRECT_WHEN_NOT_AUTHENTICATED = "/sign-in";
 
 export function middleware(request: NextRequest) {
-  console.log("Middleware is running");
+  const path = request.nextUrl.pathname;
+  const publicRoute = publicRoutes.find((route) => route.path === path);
+  const authToken = request.cookies.get("token");
+
+  if (!authToken && publicRoute) {
+    return NextResponse.next();
+  }
+
+  if (!authToken && !publicRoute) {
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.pathname = REDIRECT_WHEN_NOT_AUTHENTICATED;
+    return NextResponse.redirect(redirectUrl);
+  }
+
+  if (authToken && publicRoute?.whenAuthenticated === "redirect") {
+    const redirectUrl = request.nextUrl.clone();
+    redirectUrl.pathname = "/home";
+    return NextResponse.redirect(redirectUrl);
+  }
+
   return NextResponse.next();
 }
 
