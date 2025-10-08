@@ -7,6 +7,7 @@ import { Form } from "@/components/ui/form";
 import { Button } from "@/components/ui/button";
 import { TextInput } from "@/components/Input";
 import Link from "next/link";
+import { toast } from "sonner";
 
 export function FormSignIn() {
   const form = useForm<LoginT>({
@@ -19,6 +20,7 @@ export function FormSignIn() {
 
   function onSubmit(values: LoginT) {
     console.log(values);
+    toast.success("Logged in successfully!");
   }
 
   return (

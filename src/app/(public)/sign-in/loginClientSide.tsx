@@ -24,13 +24,13 @@ export function LoginClientSide(props: LoginClientSideProps) {
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-start bg-zinc-800 font-sans">
+    <div className="flex min-h-screen flex-col items-center justify-center bg-zinc-800 font-sans md:min-h-screen md:flex-row">
       <section
         className={cn(
-          "flex h-screen flex-col items-center justify-center bg-zinc-800 p-10 text-center transition-all duration-800 ease-in-out",
+          "flex flex-col items-center justify-center bg-zinc-800 p-10 text-center transition-all duration-800 ease-in-out md:h-screen",
           {
             "w-full": !formVisible,
-            "w-1/2": formVisible,
+            "md:w-1/2": formVisible,
           }
         )}
       >
@@ -47,10 +47,10 @@ export function LoginClientSide(props: LoginClientSideProps) {
 
       <section
         className={cn(
-          "flex h-screen items-center justify-center overflow-hidden bg-white transition-all duration-800 ease-in-out",
+          "flex flex-grow items-center justify-center overflow-hidden bg-white transition-all duration-800 ease-in-out md:h-screen",
           {
             "w-0 opacity-0": !formVisible,
-            "w-1/2 p-8 opacity-100": formVisible,
+            "w-full p-8 opacity-100 md:w-1/2": formVisible,
           }
         )}
       >
