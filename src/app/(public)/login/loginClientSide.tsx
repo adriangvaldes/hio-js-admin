@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { FormSignIn } from "./components/formSignIn";
 import { useState } from "react";
-import { setCookie } from "../../actions/cookies";
+import { setCookie } from "../../../actions/cookies";
 import { Activity } from "lucide-react";
 import { FormSignUp } from "./components/formSigUp";
 import { useSearchParams } from "next/navigation";
