@@ -10,7 +10,11 @@ export function Header() {
   const { signOut, user } = useAuth();
 
   if (!user) {
-    return null;
+    return (
+      <Button onClick={signOut} color="white" variant="secondary" className="mt-4">
+        Logout
+      </Button>
+    );
   }
 
   return (
