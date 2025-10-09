@@ -9,8 +9,3 @@ interface User {
   isActive: boolean;
   sessionToken: string;
 }
-
-interface UserSession {
-  formData: boolean;
-  user: User | null;
-}

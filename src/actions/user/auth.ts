@@ -7,11 +7,12 @@ import jwt from "jsonwebtoken";
 import { loginSchema, LoginT } from "@/lib/auth_prisma";
 import { ApiResponse } from "@/lib/typeGuard";
 import { ApiErrorMessages } from "@/lib/models/Errors";
+import { useUserSessionStore } from "@/store/userSession";
 
 const JWT_SECRET = process.env.JWT_SECRET || "your-default-secret";
 const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET || "your-default-refresh-secret";
 
-export async function signIn(values: LoginT): Promise<ApiResponse<{ accessToken: string }>> {
+export async function signIn(values: LoginT): Promise<ApiResponse<null>> {
   const validation = loginSchema.safeParse(values);
   if (!validation.success) {
     return {
@@ -33,6 +34,7 @@ export async function signIn(values: LoginT): Promise<ApiResponse<{ accessToken:
     }
 
     const isPasswordValid = await bcrypt.compare(password, user.password);
+
     if (!isPasswordValid) {
       return {
         success: false,
@@ -62,8 +64,17 @@ export async function signIn(values: LoginT): Promise<ApiResponse<{ accessToken:
       path: "/",
     });
 
-    // 4. Instead of returning JSON, we can return an object or redirect
-    return { success: true, data: { accessToken } };
+    const { setUserSession } = useUserSessionStore();
+
+    setUserSession({
+      id: user.id,
+      email: user.email,
+      name: user.name,
+      isAdmin: user.isAdmin,
+      accessToken,
+    });
+
+    return { success: true, data: null };
   } catch (error) {
     console.error("Sign-in Error:", error);
     return {

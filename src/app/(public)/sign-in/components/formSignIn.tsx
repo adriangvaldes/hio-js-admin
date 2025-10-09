@@ -8,8 +8,14 @@ import { Button } from "@/components/ui/button";
 import { TextInput } from "@/components/Input";
 import Link from "next/link";
 import { toast } from "sonner";
+import { signIn } from "@/actions/user/auth";
+import { isSuccess } from "@/lib/typeGuard";
+import { useRouter } from "next/navigation";
+import { Spinner } from "@/components/ui/spinner";
 
 export function FormSignIn() {
+  const { push } = useRouter();
+
   const form = useForm<LoginT>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -18,9 +24,20 @@ export function FormSignIn() {
     },
   });
 
-  function onSubmit(values: LoginT) {
+  async function onSubmit(values: LoginT) {
     console.log(values);
-    toast.error("Failed to Log In!");
+    const res = await signIn(values);
+
+    console.log(res);
+
+    if (!isSuccess(res)) {
+      toast.error(res.error.message);
+      return;
+    }
+
+    push("/dashboard");
+
+    toast.success("Logged In Successfully!");
   }
 
   return (
@@ -43,7 +60,9 @@ export function FormSignIn() {
             type="password"
           />
 
-          <Button type="submit">Submit</Button>
+          <Button type="submit">
+            Submit <Spinner show={form.formState.isSubmitting} />
+          </Button>
         </form>
         <p className="mt-5 text-slate-400">
           Not have a account? Click here to{" "}
