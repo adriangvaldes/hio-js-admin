@@ -7,8 +7,8 @@ import jwt from "jsonwebtoken";
 import { loginSchema, LoginT } from "@/lib/auth_prisma";
 import { ApiResponse } from "@/lib/typeGuard";
 import { ApiErrorMessages } from "@/lib/models/Errors";
-import { useUserSessionStore } from "@/store/userSession";
 import { UserSession } from "@/types/userSession";
+import { redirect } from "next/navigation";
 
 const JWT_SECRET = process.env.JWT_SECRET || "your-default-secret";
 const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET || "your-default-refresh-secret";
@@ -81,4 +81,9 @@ export async function signIn(values: LoginT): Promise<ApiResponse<UserSession>> 
       error: { message: ApiErrorMessages.INVALID_CREDENTIALS, statusCode: 401 },
     };
   }
+}
+
+export async function signOutAction(): Promise<ApiResponse<null>> {
+  (await cookies()).delete("refreshToken");
+  redirect("/sign-in");
 }

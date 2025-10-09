@@ -9,6 +9,7 @@ export enum ApiErrorMessages {
   NOT_FOUND = "Not found",
   RATE_LIMIT_EXCEEDED = "Rate limit exceeded",
   INTERNAL_SERVER_ERROR = "Internal server error",
+  UNEXPECTED_ERROR = "Unexpected error",
 }
 
 export type TApiError = {
