@@ -12,9 +12,11 @@ import { signIn } from "@/actions/user/auth";
 import { isSuccess } from "@/lib/typeGuard";
 import { useRouter } from "next/navigation";
 import { Spinner } from "@/components/ui/spinner";
+import { useUserSessionStore } from "@/store/userSession";
 
 export function FormSignIn() {
   const { push } = useRouter();
+  const { setUserSession } = useUserSessionStore();
 
   const form = useForm<LoginT>({
     resolver: zodResolver(loginSchema),
@@ -25,19 +27,16 @@ export function FormSignIn() {
   });
 
   async function onSubmit(values: LoginT) {
-    console.log(values);
     const res = await signIn(values);
-
-    console.log(res);
 
     if (!isSuccess(res)) {
       toast.error(res.error.message);
       return;
     }
 
-    push("/dashboard");
-
+    setUserSession(res.data);
     toast.success("Logged In Successfully!");
+    push("/dashboard");
   }
 
   return (

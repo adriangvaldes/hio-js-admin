@@ -8,11 +8,12 @@ import { loginSchema, LoginT } from "@/lib/auth_prisma";
 import { ApiResponse } from "@/lib/typeGuard";
 import { ApiErrorMessages } from "@/lib/models/Errors";
 import { useUserSessionStore } from "@/store/userSession";
+import { UserSession } from "@/types/userSession";
 
 const JWT_SECRET = process.env.JWT_SECRET || "your-default-secret";
 const REFRESH_TOKEN_SECRET = process.env.REFRESH_TOKEN_SECRET || "your-default-refresh-secret";
 
-export async function signIn(values: LoginT): Promise<ApiResponse<null>> {
+export async function signIn(values: LoginT): Promise<ApiResponse<UserSession>> {
   const validation = loginSchema.safeParse(values);
   if (!validation.success) {
     return {
@@ -64,17 +65,15 @@ export async function signIn(values: LoginT): Promise<ApiResponse<null>> {
       path: "/",
     });
 
-    const { setUserSession } = useUserSessionStore();
-
-    setUserSession({
-      id: user.id,
-      email: user.email,
-      name: user.name,
-      isAdmin: user.isAdmin,
-      accessToken,
-    });
-
-    return { success: true, data: null };
+    return {
+      success: true,
+      data: {
+        id: user.id,
+        email: user.email,
+        name: user.name,
+        isAdmin: user.isAdmin,
+      },
+    };
   } catch (error) {
     console.error("Sign-in Error:", error);
     return {
