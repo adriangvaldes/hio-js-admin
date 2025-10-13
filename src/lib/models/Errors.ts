@@ -10,6 +10,7 @@ export enum ApiErrorMessages {
   RATE_LIMIT_EXCEEDED = "Rate limit exceeded",
   INTERNAL_SERVER_ERROR = "Internal server error",
   UNEXPECTED_ERROR = "Unexpected error",
+  GET_COOKIE_ERROR = "Cookie get Error",
 }
 
 export type TApiError = {

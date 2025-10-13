@@ -83,6 +83,25 @@ export async function signIn(values: LoginT): Promise<ApiResponse<UserSession>> 
   }
 }
 
+export async function getUserSession(): Promise<UserSession | null> {
+  const refreshTokenCookie = (await cookies()).get("refreshToken");
+
+  if (!refreshTokenCookie) return null;
+
+  const userSession = await prisma.user.findMany({
+    where: { refreshToken: refreshTokenCookie.value },
+  });
+
+  if (userSession.length === 0) return null;
+
+  return {
+    email: userSession[0].email,
+    isAdmin: userSession[0].isAdmin,
+    name: userSession[0].name,
+    id: userSession[0].id,
+  };
+}
+
 export async function signOutAction(): Promise<ApiResponse<null>> {
   (await cookies()).delete("refreshToken");
   redirect("/sign-in");
