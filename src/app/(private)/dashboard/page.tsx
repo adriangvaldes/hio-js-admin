@@ -1,5 +1,4 @@
-import { useUserSessionStore } from "@/store/userSession";
-import { SideMenu } from "./components/header";
+import { SideMenu } from "./components/sideMenu";
 
 export default function Dashboard() {
   return (
